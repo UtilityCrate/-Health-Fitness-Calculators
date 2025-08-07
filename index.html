@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <link rel="icon" type="image/x-icon" href="favicon-16x16.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3808373705183829"
+     crossorigin="anonymous"></script>
+    <title>UtilityCrate - Health & Fitness Calculators</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#1E40AF',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans bg-gray-50">
+ <!-- Sticky Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
+          <!-- नया PNG लोगो कोड -->
+<div class="flex items-center">
+    <img src="favicon-32x32.png" class="h-8 w-8" alt="UtilityCrate Logo">
+    <span class="ml-2 text-xl font-bold text-gray-800">UtilityCrate</span>
+</div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#" class="text-primary font-medium">Home</a>
+                <a href="#about" class="text-gray-600 hover:text-primary transition">About Us</a>
+                <a href="#tools" class="text-gray-600 hover:text-primary transition">Tools</a>
+                <a href="contact.html" class="text-gray-600 hover:text-primary transition">Contact</a>
+            </nav>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-lg">
+            <a href="#" class="block py-2 text-primary font-medium">Home</a>
+            <a href="#about" class="block py-2 text-gray-600 hover:text-primary transition">About Us</a>
+            <a href="#tools" class="block py-2 text-gray-600 hover:text-primary transition">Tools</a>
+            <a href="contact.html" class="block py-2 text-gray-600 hover:text-primary transition">Contact</a>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12"> Health & Fitness Calculators</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  <!-- Tool: BMI Calculator -->
+<div class="group block bg-gray-50 rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300 border border-gray-100 hover:border-primary">
+  <div class="text-primary mb-4">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1 4V9h-1m2 0h.01M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    </svg>
+  </div>
+  <h3 class="text-xl font-semibold mb-2 text-gray-800 group-hover:text-primary">BMI Calculator</h3>
+  <p class="text-gray-600">Calculate your Body Mass Index using height and weight.</p>
+
+  <div class="mb-4">
+    <label for="weight" class="block text-sm font-medium text-gray-700">Weight (kg)</label>
+    <input type="number" id="weight" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"placeholder="e.g. 65">
+  </div>
+
+  <div class="mb-4">
+    <label for="height" class="block text-sm font-medium text-gray-700">Height (cm)</label>
+    <input type="number" id="height" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"placeholder="e.g. 170">
+  </div>
+
+  <button onclick="calculateBMI()" class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700">Calculate</button>
+
+  <div id="bmi-result" class="mt-4 text-center font-semibold text-gray-800 text-lg"></div>
+  <div id="bmi-advice" class="text-center text-sm mt-2 text-gray-600"></div>
+  <div id="bmi-range" class="text-center text-xs mt-1 text-gray-500"></div>
+</div>
+
+<script>
+  function calculateBMI() {
+    const weight = parseFloat(document.getElementById("weight").value);
+    const height = parseFloat(document.getElementById("height").value);
+
+    if (!weight || !height || weight <= 0 || height <= 0) {
+      document.getElementById("bmi-result").innerHTML = "<span class='text-red-600'>Please enter valid values.</span>";
+      document.getElementById("bmi-advice").innerHTML = "";
+      document.getElementById("bmi-range").innerHTML = "";
+      return;
+    }
+
+    const heightM = height / 100;
+    const bmi = weight / (heightM * heightM);
+    const bmiRounded = bmi.toFixed(2);
+
+    let category = "";
+    let emoji = "";
+    let advice = "";
+    let color = "text-gray-700";
+
+    if (bmi < 18.5) {
+      category = "Underweight";
+      emoji = "🥗";
+      advice = "You should consider gaining some healthy weight.";
+      color = "text-yellow-600";
+    } else if (bmi < 24.9) {
+      category = "Normal weight";
+      emoji = "💪";
+      advice = "Great! Maintain with healthy food and regular exercise.";
+      color = "text-green-600";
+    } else if (bmi < 29.9) {
+      category = "Overweight";
+      emoji = "⚠️";
+      advice = "Try to be more active and eat balanced meals.";
+      color = "text-orange-600";
+    } else {
+      category = "Obese";
+      emoji = "🚨";
+      advice = "Consider consulting a healthcare provider.";
+      color = "text-red-600";
+    }
+
+    const minIdealWeight = (18.5 * heightM * heightM).toFixed(1);
+    const maxIdealWeight = (24.9 * heightM * heightM).toFixed(1);
+    const idealWeightRange = `🎯 Ideal Weight Range: ${minIdealWeight} kg – ${maxIdealWeight} kg`;
+
+    document.getElementById("bmi-result").innerHTML = `✅ Your BMI is <span class="font-bold text-blue-700">${bmiRounded}</span> (<span class="${color}">${category}</span>) ${emoji}`;
+    document.getElementById("bmi-advice").innerHTML = `${advice}`;
+    document.getElementById("bmi-range").innerHTML = `📊 Normal BMI Range: 18.5 – 24.9<br>${idealWeightRange}`;
+  }
+</script>
+
+<!-- Tool: BMR Calculator -->
+<div class="group block bg-gray-50 rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300 border border-gray-100 hover:border-primary">
+  <div class="text-primary mb-4">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1 4V9h-1m2 0h.01M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    </svg>
+  </div>
+  <h3 class="text-xl font-semibold mb-2 text-gray-800 group-hover:text-primary">BMR Calculator</h3>
+  <p class="text-gray-600">Calculate your Basal Metabolic Rate (BMR).</p>
+
+  <div class="mt-4 space-y-3">
+    <label class="block text-sm text-gray-700">Gender:</label>
+    <select id="gender" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+
+    <label class="block text-sm text-gray-700">Age (years):</label>
+    <input type="number" id="age" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50" placeholder="e.g. 25">
+
+    <label class="block text-sm text-gray-700">Height (cm):</label>
+    <input type="number" id="bmr-height" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50" placeholder="e.g. 170">
+
+    <label class="block text-sm text-gray-700">Weight (kg):</label>
+    <input type="number" id="bmr-weight" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50" placeholder="e.g. 65">
+
+    <button onclick="calculateBMR()" class="w-full mt-3 bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Calculate BMR</button>
+
+    <div id="bmr-result" class="mt-4 text-center font-medium text-gray-700"></div>
+  </div>
+</div>
+
+<script>
+function calculateBMR() {
+  const gender = document.getElementById("gender").value;
+  const age = parseInt(document.getElementById("age").value);
+  const height = parseFloat(document.getElementById("bmr-height").value);
+  const weight = parseFloat(document.getElementById("bmr-weight").value);
+  const resultDiv = document.getElementById("bmr-result");
+
+  if (!age || !height || !weight || age <= 0 || height <= 0 || weight <= 0) {
+    resultDiv.innerText = "Please enter valid age, height, and weight.";
+    return;
+  }
+
+  let bmr;
+  if (gender === "male") {
+    bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+  } else {
+    bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+  }
+    const tdee = {
+        sedentary: (bmr * 1.2).toFixed(2),
+        lightlyActive: (bmr * 1.375).toFixed(2),
+        moderatelyActive: (bmr * 1.55).toFixed(2),
+        veryActive: (bmr * 1.725).toFixed(2),
+        superActive: (bmr * 1.9).toFixed(2)
+    };
+  document.getElementById('bmr-result').innerHTML = `
+        <p>Your BMR is: <strong>${bmr.toFixed(2)}</strong> kcal/day</p>
+        <p class="mt-2 font-medium">Estimated Daily Calorie Needs:</p>
+        <ul class="list-disc ml-6 text-sm mt-1 text-gray-600">
+            <li>Sedentary (little/no exercise): <strong>${tdee.sedentary}</strong> kcal/day</li>
+            <li>Lightly active (1–3 days/week): <strong>${tdee.lightlyActive}</strong> kcal/day</li>
+            <li>Moderately active (3–5 days/week): <strong>${tdee.moderatelyActive}</strong> kcal/day</li>
+            <li>Very active (6–7 days/week): <strong>${tdee.veryActive}</strong> kcal/day</li>
+            <li>Super active (hard physical job): <strong>${tdee.superActive}</strong> kcal/day</li>
+        </ul>
+        <p class="mt-4 text-sm text-blue-500">💡 Note: These values are estimates. Always consult a healthcare professional for personalized advice.</p>
+    `;
+}
+</script>
+
+<!-- Tool: Calorie Calculator -->
+<div class="group block bg-gray-50 rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300 border border-gray-100 hover:border-primary mt-10">
+    <div class="text-primary mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+    </div>
+    <h3 class="text-xl font-semibold mb-2 text-gray-800 group-hover:text-primary">Calorie Calculator</h3>
+    <p class="text-gray-600">Estimate your daily calorie needs based on your age, gender, height, weight, and activity level.</p>
+    <div class="mt-4 space-y-2">
+        <input type="number" id="cal-age" placeholder="Age (years)" class="block w-full p-2 text-sm border border-gray-300 rounded-lg">
+        <select id="cal-gender" class="block w-full p-2 text-sm border border-gray-300 rounded-lg">
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+        <input type="number" id="cal-weight" placeholder="Weight (kg)" class="block w-full p-2 text-sm border border-gray-300 rounded-lg">
+        <input type="number" id="cal-height" placeholder="Height (cm)" class="block w-full p-2 text-sm border border-gray-300 rounded-lg">
+        <select id="cal-activity" class="block w-full p-2 text-sm border border-gray-300 rounded-lg">
+            <option value="">Select Activity Level</option>
+            <option value="1.2">Sedentary (little or no exercise)</option>
+            <option value="1.375">Lightly active (light exercise/sports 1-3 days/week)</option>
+            <option value="1.55">Moderately active (moderate exercise/sports 3-5 days/week)</option>
+            <option value="1.725">Very active (hard exercise/sports 6-7 days/week)</option>
+            <option value="1.9">Super active (very hard exercise & physical job)</option>
+        </select>
+        <button onclick="calculateCalories()" class="w-full bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Calculate</button>
+        <div id="calorie-result" class="mt-4 text-center text-gray-700 font-semibold"></div>
+    </div>
+</div>
+
+<script>
+function calculateCalories() {
+    const age = parseFloat(document.getElementById('cal-age').value);
+    const gender = document.getElementById('cal-gender').value;
+    const weight = parseFloat(document.getElementById('cal-weight').value);
+    const height = parseFloat(document.getElementById('cal-height').value);
+    const activity = parseFloat(document.getElementById('cal-activity').value);
+
+    if (!isNaN(age) && gender && !isNaN(weight) && !isNaN(height) && !isNaN(activity)) {
+        let bmr;
+        if (gender === 'male') {
+            bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+        } else {
+            bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+        }
+
+        const calories = bmr * activity;
+        document.getElementById('calorie-result').innerText = `Estimated daily calories: ${calories.toFixed(0)} kcal`;
+    } else {
+        document.getElementById('calorie-result').innerText = 'Please enter all fields correctly.';
+    }
+}
+</script>
+
+<!-- Tool: Ideal Weight Calculator -->
+<div class="group block bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition duration-300 border border-gray-100 hover:border-blue-600">
+    <div class="text-blue-600 mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12c0 4.97-4.03 9-9 9S3 16.97 3 12 7.03 3 12 3s9 4.03 9 9z" />
+        </svg>
+    </div>
+    <h3 class="text-xl font-semibold mb-2 text-gray-800 group-hover:text-blue-600">Ideal Weight Calculator</h3>
+    <p class="text-gray-600 mb-4">Find your ideal weight based on your height.</p>
+
+    <div class="space-y-3">
+        <input type="number" id="heightCm" placeholder="Height (in cm)" class="w-full p-2 border border-gray-300 rounded-lg">
+        <button onclick="calculateIdealWeight()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Calculate Ideal Weight</button>
+    </div>
+
+    <div id="idealWeightResult" class="mt-4 text-gray-700 text-sm"></div>
+</div>
+
+<!-- Tool: Pregnancy Due Date Calculator -->
+<div class="group block bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition duration-300 border border-gray-100 hover:border-blue-600">
+    <div class="text-blue-600 mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 1.343 3 3s-1.343 3-3 3m0-6V3m0 12v6m9-9h-6m-6 0H3" />
+        </svg>
+    </div>
+    <h3 class="text-xl font-semibold mb-2 text-gray-800 group-hover:text-blue-600">Pregnancy Due Date Calculator</h3>
+    <p class="text-gray-600 mb-4">Estimate your due date based on your last menstrual period (LMP).</p>
+
+    <div class="space-y-3">
+        <input type="date" id="lmpDate" class="w-full p-2 border border-gray-300 rounded-lg">
+        <button onclick="calculateDueDate()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Calculate Due Date</button>
+    </div>
+
+    <div id="dueDateResult" class="mt-4 text-gray-700 text-sm"></div>
+</div>
+
+
+
+            </div>
+        </div>
+    </section>
+
+     <!-- Footer -->
+    <footer id="contact" class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Logo and Description -->
+                 <div>
+                    <div class="flex items-center">
+    <img src="favicon-32x32.png" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        </svg>
+                        <span class="ml-2 text-xl font-bold">UtilityCrate</span>
+                    </div>
+                    <p class="text-gray-400">
+                        Your one-stop solution for all daily calculation needs.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                        <li><a href="#tools" class="text-gray-400 hover:text-white transition">Tools</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Social Media -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Connect With Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition text-2xl">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition text-2xl">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition text-2xl">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 UtilityCrate. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+    <!-- Browser Image Compression Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/browser-image-compression/2.0.0/browser-image-compression.js"></script>
+    <!-- Image Compressor Script -->
+    <script src="Ideal-Weight-Calculator.js"></script>
+     <script src="Pregnancy-Due-Date-Calculator.js"></script>
+     <script src="ROI-Calculator.js"></script>
+      <script src="Inventory-Turnover-Ratio-Calculator.js"></script>
+        <script src="Working-Capital-Calculator.js"></script>
+         <script src="Contribution-Margin-Calculator.js"></script>
+           <script src="Compound-Interest-Calculator.js"></script>
+           <script src="Profit-Margin-Calculator.js"></script>
+            <script src="Break-Even-Point-Calculator.js"></script>
+</body>
+</html>
